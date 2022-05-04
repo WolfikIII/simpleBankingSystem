@@ -22,16 +22,16 @@ public class TransactionsController {
     }
 
     @PutMapping("/")
-    public List<Transactions> newTransaction(
+    public ResponseEntity<List<Transactions>> newTransaction(
             @RequestParam Integer fromAccountNumber,
             @RequestParam Integer toAccountNumber,
             @RequestParam BigDecimal amount
     ) throws NoFundsAvailableException, BankAccountNotFoundException {
-        return transactionsHistoryService.newTransaction(fromAccountNumber, toAccountNumber, amount);
+        return new ResponseEntity<>(transactionsHistoryService.newTransaction(fromAccountNumber, toAccountNumber, amount), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/bankAccountId")
-    public List<Transactions> getTrasactionsByBankAccountId(@RequestParam Long bankAccountId){
+    public List<Transactions> getTrasactionsByBankAccountId(@RequestParam Long bankAccountId) throws BankAccountNotFoundException {
         return transactionsHistoryService.getTransactionsByBankAccountId(bankAccountId);
     }
 
@@ -39,7 +39,7 @@ public class TransactionsController {
     public List<Transactions> getTransactionsByBankAccountIdAndMonth(
             @RequestParam Long bankAccountId,
             @RequestParam Integer month
-    ){
+    ) throws BankAccountNotFoundException {
         return transactionsHistoryService.getTransactionsByBankAccountIdAndMonth(bankAccountId, month);
     }
 

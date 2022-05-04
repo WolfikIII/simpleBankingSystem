@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/client")
 public class ClientController {
@@ -23,13 +25,13 @@ public class ClientController {
         return new ResponseEntity<>(clientService.addNewClient(client), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping("/id")
     public void deleteClient(@RequestParam Long clientId){
         clientService.deleteClientById(clientId);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Client> getClientById(@RequestParam Long clientId){
-        return new ResponseEntity<> (clientService.getClientById(clientId), HttpStatus.OK);
+    @GetMapping("/id")
+    public Optional<Client> getClientById(@RequestParam Long clientId){
+        return clientService.getClientById(clientId);
     }
 }

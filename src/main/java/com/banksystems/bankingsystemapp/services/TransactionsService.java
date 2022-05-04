@@ -13,11 +13,11 @@ public interface TransactionsService {
             (
             Integer fromAccountNumber,
             Integer toAccountNumber,
-            BigDecimal amound
+            BigDecimal amount
             ) throws NoFundsAvailableException, BankAccountNotFoundException;
 
-    List<Transactions> getTransactionsByBankAccountId(Long bankAccountId);
-    List<Transactions> getTransactionsByBankAccountIdAndMonth(Long bankAccountId, Integer month);
+    List<Transactions> getTransactionsByBankAccountId(Long bankAccountId) throws BankAccountNotFoundException;
+    List<Transactions> getTransactionsByBankAccountIdAndMonth(Long bankAccountId, Integer month) throws BankAccountNotFoundException;
     Transactions moneyDeposit(Long bankAccountId, BigDecimal amount);
     Transactions moneyPayOff(Long bankAccountId, BigDecimal amount) throws NoFundsAvailableException;
 }

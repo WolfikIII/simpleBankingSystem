@@ -21,7 +21,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/id")
     public Optional<User> getUserById(@RequestParam Long userId){
         return userService.getUserById(userId);
     }
@@ -31,7 +31,7 @@ public class UserController {
         return new ResponseEntity<>(userService.addNewUser(user), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping("/id")
     public void deleteUserById(@RequestParam Long userId){
         userService.deleteUserById(userId);
     }

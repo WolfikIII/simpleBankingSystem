@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -29,12 +30,17 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void deleteClientById(Long clientId){
+        if (clientRepository.getById(clientId)==null)
+            throw new NullPointerException("Client not found");
+        else
         clientRepository.deleteById(clientId);
     }
 
     @Override
-    public Client getClientById(Long clientId){
-       return clientRepository.getById(clientId);
+    public Optional<Client> getClientById(Long clientId){
+        if(clientRepository.findById(clientId)==null)
+            throw new NullPointerException("Client not found");
+       return clientRepository.findById(clientId);
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -42,7 +48,7 @@ public class ClientServiceImpl implements ClientService {
         List<Transactions> list = new ArrayList<>();
         clientRepository.save(new Client(1L, "Paweł", "Gaweł", list));
         clientRepository.save(new Client(2L, "Marcin", "Lisek", list));
-        clientRepository.save(new Client(1L, "Michał", "Ryba", list));
-        clientRepository.save(new Client(1L, "Daniel", "Osioł", list));
+        clientRepository.save(new Client(3L, "Michał", "Ryba", list));
+        clientRepository.save(new Client(4L, "Daniel", "Osioł", list));
     }
 }

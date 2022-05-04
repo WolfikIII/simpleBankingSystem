@@ -10,7 +10,7 @@ import java.util.List;
 public interface TransactionsRepository extends JpaRepository<Transactions, Long> {
     List<Transactions> getTransactionsByBankAccountId(Long bankAccountId);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM transactions WHERE MONTH(transaction_date) =:month and bankAccountId =:bankAccountId")
+    @Query(nativeQuery = true, value = "SELECT * FROM transactions WHERE MONTH(transaction_date) =:month and bank_account_id =:bankAccountId")
     List<Transactions> getTransactionsByBankAccountIdAndMonth(Long bankAccountId, Integer month);
 
 }

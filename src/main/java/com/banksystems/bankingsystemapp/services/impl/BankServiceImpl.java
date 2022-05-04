@@ -1,7 +1,6 @@
 package com.banksystems.bankingsystemapp.services.impl;
 
 import com.banksystems.bankingsystemapp.models.BankAccount;
-import com.banksystems.bankingsystemapp.models.Client;
 import com.banksystems.bankingsystemapp.models.Transactions;
 import com.banksystems.bankingsystemapp.repositories.BankRepository;
 import com.banksystems.bankingsystemapp.services.BankService;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BankServiceImpl implements BankService {
@@ -25,8 +25,10 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public BankAccount getBankAccountById(Long bankAccountId){
-        return bankRepository.getBankAccountById(bankAccountId);
+    public Optional<BankAccount> getBankAccountById(Long bankAccountId){
+        if(bankRepository.findById(bankAccountId)==null)
+            throw new NullPointerException("Bank account not found");
+        return bankRepository.findById(bankAccountId);
     }
 
     @Override

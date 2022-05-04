@@ -24,6 +24,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getUserById(Long userId){
+        if(userRepository.findById(userId)==null)
+            throw new NullPointerException("User not found");
         return userRepository.findById(userId);
     }
 

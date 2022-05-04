@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/bankAccount")
 public class BankController {
@@ -18,8 +20,8 @@ public class BankController {
         this.bankService = bankService;
     }
 
-    @GetMapping("/{id}")
-    public BankAccount getBankAccountById(@RequestParam Long bankAccountId){
+    @GetMapping("/id")
+    public Optional<BankAccount> getBankAccountById(@RequestParam Long bankAccountId){
         return bankService.getBankAccountById(bankAccountId);
     }
 
@@ -28,7 +30,7 @@ public class BankController {
         return new ResponseEntity<>(bankService.addNewBankAccount(bankAccount), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id")
     public void deleteBankAccountById(@RequestParam Long bankAccountId){
         bankService.deleteBankAccountById(bankAccountId);
     }
